@@ -1,0 +1,24 @@
+{
+    "name": "codecollab/encryption",
+    "description": "Encryption package of the CodeCollab project",
+    "version": "0.1.0",
+    "type": "library",
+    "keywords": ["codecollab", "rijndael", "encryption", "security"],
+    "homepage": "https://github.com/CodeCollab/Encryption",
+    "license": "See the LICENSE file",
+    "authors": [
+        {
+            "name": "Pieter Hordijk",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"CodeCollab\\Encryption\\": "src/"}
+    },
+    "require": {
+        "php": ">=7.0-dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*"
+    }
+}
