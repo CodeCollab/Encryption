@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * Interface for encryption classes
+ * Interface for decryption classes
  *
  * PHP version 7.0
  *
@@ -20,14 +20,14 @@ namespace CodeCollab\Security\Encryption;
  * @package    Encryption
  * @author     Pieter Hordijk <info@pieterhordijk.com
  */
-interface Encryptor
+interface Decryptor
 {
     /**
-     * Encrypts data
+     * Decrypts data
      *
-     * @param string $data The data to encrypt
+     * @param string $data The data to decrypt
      *
-     * @return string The encrypted data
+     * @return string The decrypted data
      */
-    public function encrypt(string $data): string;
+    public function decrypt(string $data): string;
 }
