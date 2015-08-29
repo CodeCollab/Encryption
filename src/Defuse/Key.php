@@ -37,7 +37,7 @@ class Key
         try {
             return Crypto::createNewRandomKey();
         } catch(\Exception $e) {
-            throw new CryptoException($e);
+            throw new CryptoException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }
