@@ -11,7 +11,7 @@
  * @license    See the LICENSE file
  * @version    1.0.0
  */
-namespace CodeCollab\Security\Encryption;
+namespace CodeCollab\Encryption;
 
 /**
  * Exception which gets thrown when there is a crypto problem
