@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * Exception which gets thrown when an insufficient strong key is being generated
+ * Exception which gets thrown when there is a crypto problem
  *
  * PHP version 7.0
  *
@@ -14,12 +14,12 @@
 namespace CodeCollab\Security\Encryption;
 
 /**
- * Exception which gets thrown when an insufficient strong key is being generated
+ * Exception which gets thrown when there is a crypto problem
  *
  * @category   CodeCollab
  * @package    Encryption
  * @author     Pieter Hordijk <info@pieterhordijk.com>
  */
-class StrengthException extends \Exception
+class CryptoException extends \Exception
 {
 }
