@@ -1,32 +1,26 @@
 <?php declare(strict_types=1);
 /**
- * Defuse key generator
+ * Encryption key generator interface
  *
  * PHP version 7.0
  *
  * @category   CodeCollab
  * @package    Encryption
- * @subpackage Defuse
  * @author     Pieter Hordijk <info@pieterhordijk.com>
  * @copyright  Copyright (c) 2015 Pieter Hordijk <https://github.com/PeeHaa>
  * @license    See the LICENSE file
  * @version    1.0.0
  */
-namespace CodeCollab\Encryption\Defuse;
-
-use CodeCollab\Encryption\Key as KeyInterface;
-use Crypto;
-use CodeCollab\Encryption\CryptoException;
+namespace CodeCollab\Encryption;
 
 /**
- * Defuse key generator
+ * Encryption key generator interface
  *
  * @category   CodeCollab
  * @package    Encryption
- * @subpackage Defuse
  * @author     Pieter Hordijk <info@pieterhordijk.com
  */
-class Key implements KeyInterface
+interface Key
 {
     /**
      * Generates a new key
@@ -35,12 +29,5 @@ class Key implements KeyInterface
      *
      * @throw \CodeCollab\Encryption\CryptoException When not being able to create a sufficient strong key
      */
-    public function generate(): string
-    {
-        try {
-            return Crypto::createNewRandomKey();
-        } catch(\Exception $e) {
-            throw new CryptoException($e->getMessage(), $e->getCode(), $e);
-        }
-    }
+    public function generate(): string;
 }
