@@ -49,6 +49,8 @@ class Encryptor implements EncryptorInterface
      * @param string $data The data to encrypt
      *
      * @return string The encrypted data
+     *
+     * @throw \CodeCollab\Encryption\CryptoException When not being able to (safely) encrypt the data
      */
     public function encrypt(string $data): string
     {

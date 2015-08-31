@@ -12,7 +12,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsCorrectInterface()
     {
-        $encryptor = new Encryptor((new Key())->generate());
+        $encryptor = new Encryptor('key');
 
         $this->assertInstanceOf('CodeCollab\Encryption\Encryptor', $encryptor);
     }
