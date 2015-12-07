@@ -1,7 +1,7 @@
 {
     "name": "codecollab/encryption",
     "description": "Encryption package of the CodeCollab project",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "type": "library",
     "keywords": ["codecollab", "rijndael", "encryption", "security"],
     "homepage": "https://github.com/CodeCollab/Encryption",
