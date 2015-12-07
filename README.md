@@ -73,3 +73,8 @@ This exception gets thrown when there has been suspected tampering with messages
 
 [contributing]: https://github.com/CodeCollab/Encryption/blob/master/CONTRIBUTING.md
 [mit]: http://spdx.org/licenses/MIT
+
+## Security issues
+
+If you found a security issue please contact directly by mail instead of using the issue tracker at codecollab-security@pieterhordijk.com
+
