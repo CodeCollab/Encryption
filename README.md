@@ -32,13 +32,19 @@ Before being able to encrypt/decrypt data a key needs to be generated / added. T
     
 *Note: keys should always be stored in a secure location and should never be made public.*
 
+*Note: all key share the common `CodeCollab\Encryption\Key` interface.*
+
 ### Encrypting
 
     $encryptedData = (new \CodeCollab\Encryption\Defuse\Encryptor($key))->encrypt('the data to encrypt');
+    
+*Note: all key share the common `CodeCollab\Encryption\Encryptor` interface.*
 
 ### Decrypting
 
     $decryptedData = (new \CodeCollab\Encryption\Defuse\Decryptor($key))->decrypt($encryptedData);
+    
+*Note: all key share the common `CodeCollab\Encryption\Decryptor` interface.*    
 
 ## Contributing
 
