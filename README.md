@@ -63,6 +63,12 @@ This exception gets thrown when a key could not be generated or when a message c
 
 This exception gets thrown when there has been suspected tampering with messages. This exception should be handled like the message has been tampered with and precautions should be taken.
 
+### Full example
+
+try {
+} catch(\CodeCollab\Encryption\CryptoException $e) {
+}
+
 ## Contributing
 
 [How to contribute][contributing]
