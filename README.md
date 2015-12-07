@@ -18,6 +18,28 @@ Include the library in your project using composer:
         }
     }
 
+## Usage
+
+This library provides a common interfaces and exceptions for handling crypto in your applications.
+
+At the moment this library is just a wrapper around [defuse/php-encryption](https://github.com/defuse/php-encryption), but other crypto libraries will be included later.
+
+### Generating key
+
+Before being able to encrypt/decrypt data a key needs to be generated / added. To generate a new key use:
+
+    $key = (new \CodeCollab\Encryption\Defuse\Key())->generate();
+    
+*Note: keys should always be stored in a secure location and should never be made public.*
+
+### Encrypting
+
+    $encryptedData = (new \CodeCollab\Encryption\Defuse\Encryptor($key))->encrypt('the data to encrypt');
+
+### Decrypting
+
+    $decryptedData = (new \CodeCollab\Encryption\Defuse\Decryptor($key))->decrypt($encryptedData);
+
 ## Contributing
 
 [How to contribute][contributing]
