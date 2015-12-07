@@ -44,7 +44,24 @@ Before being able to encrypt/decrypt data a key needs to be generated / added. T
 
     $decryptedData = (new \CodeCollab\Encryption\Defuse\Decryptor($key))->decrypt($encryptedData);
     
-*Note: all key share the common `CodeCollab\Encryption\Decryptor` interface.*    
+*Note: all key share the common `CodeCollab\Encryption\Decryptor` interface.*
+
+### Exceptions
+
+This library may emit two different exceptions:
+
+- `\CodeCollab\Encryption\CryptoException`
+- `\CodeCollab\Encryption\FraudException`
+ 
+It is important to properly handle these exceptions in your applications.
+
+#### `CryptoException`
+
+This exception gets thrown when a key could not be generated or when a message could not be en- / decrypted because of system errors.
+
+#### `FraudException`
+
+This exception gets thrown when there has been suspected tampering with messages. This exception should be handled like the message has been tampered with and precautions should be taken.
 
 ## Contributing
 
