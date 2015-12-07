@@ -8,6 +8,16 @@ Encryption package of the CodeCollab project
 
 PHP7+
 
+## Installation
+
+Include the library in your project using composer:
+
+    {
+        "require-dev": {
+            "codecollab/encryption": "1.0.*"
+        }
+    }
+
 ## Contributing
 
 [How to contribute][contributing]
