@@ -1,7 +1,7 @@
 {
     "name": "codecollab/encryption",
     "description": "Encryption package of the CodeCollab project",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "type": "library",
     "keywords": ["codecollab", "rijndael", "encryption", "security"],
     "homepage": "https://github.com/CodeCollab/Encryption",
@@ -15,6 +15,7 @@
     "autoload": {
         "psr-4": {"CodeCollab\\Encryption\\": "src/"}
     },
+    "prefer-stable": true,
     "require": {
         "php": "7.0.*",
         "defuse/php-encryption": "1.2.*"
