@@ -15,7 +15,7 @@
 namespace CodeCollab\Encryption\Defuse;
 
 use CodeCollab\Encryption\Key as KeyInterface;
-use Crypto;
+use Defuse\Crypto\Key;
 use CodeCollab\Encryption\CryptoException;
 
 /**
@@ -31,16 +31,10 @@ class Key implements KeyInterface
     /**
      * Generates a new key
      *
-     * @return string The generated key
-     *
-     * @throw \CodeCollab\Encryption\CryptoException When not being able to create a sufficient strong key
+     * @throw \CodeCollab\Encryption\CryptoException Telling users to upgrade to the v2 branch of defuse/crypto
      */
     public function generate(): string
     {
-        try {
-            return Crypto::createNewRandomKey();
-        } catch(\Exception $e) {
-            throw new CryptoException($e->getMessage(), $e->getCode(), $e);
-        }
+        throw new CryptoException('New messages should not be encrypted using the v1 branch of defuse/crypto.');
     }
 }

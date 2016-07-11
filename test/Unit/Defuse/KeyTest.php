@@ -3,6 +3,7 @@
 namespace CodeCollabTest\Unit\Encryption\Defuse;
 
 use CodeCollab\Encryption\Defuse\Key;
+use CodeCollab\Encryption\CryptoException;
 
 class KeyTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,18 +15,32 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Key::generate
+     * @covers CodeCollab\Encryption\Defuse\Key::__construct
      */
-    public function testGenerateCorrectLength()
+    public function testImplementsCorrectInterface()
     {
-        $this->assertSame(16, strlen($this->key->generate()));
+        $this->assertInstanceOf(Key::class, $this->key);
     }
 
     /**
      * @covers CodeCollab\Encryption\Defuse\Key::generate
      */
-    public function testGenerateNotTheSame()
+    public function testGenerateCorrectLengthThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
+
+        $this->key->generate();
+    }
+
+    /**
+     * @covers CodeCollab\Encryption\Defuse\Key::generate
+     */
+    public function testGenerateNotTheSameThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
+    {
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
+
         $keys = [];
 
         for ($i = 0; $i < 5000; $i++) {
@@ -40,7 +55,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers CodeCollab\Encryption\Defuse\Key::generate
      */
-    public function testGenerateThrowsOnCryptoError()
+    public function testGenerateThrowsOnCryptoErrorThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
         if (!function_exists('uopz_backup')) {
             $this->markTestSkipped('uopz extension is not installed.');
@@ -51,7 +66,8 @@ class KeyTest extends \PHPUnit_Framework_TestCase
         uopz_backup('mcrypt_create_iv');
         uopz_delete('mcrypt_create_iv');
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $this->key->generate();
 
