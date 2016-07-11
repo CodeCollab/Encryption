@@ -15,7 +15,8 @@
 namespace CodeCollab\Encryption\Defuse;
 
 use CodeCollab\Encryption\Encryptor as EncryptorInterface;
-use Crypto;
+use Defuse\Crypto\Crypto;
+use Defuse\Crypto\Exception\EnvironmentIsBrokenException;
 use CodeCollab\Encryption\CryptoException;
 
 /**
@@ -48,16 +49,10 @@ class Encryptor implements EncryptorInterface
      *
      * @param string $data The data to encrypt
      *
-     * @return string The encrypted data
-     *
-     * @throw \CodeCollab\Encryption\CryptoException When not being able to (safely) encrypt the data
+     * @throw \CodeCollab\Encryption\CryptoException Telling users to upgrade to the v2 branch of defuse/crypto
      */
     public function encrypt(string $data): string
     {
-        try {
-            return Crypto::encrypt($data, $this->key);
-        } catch(\Exception $e) {
-            throw new CryptoException($e->getMessage(), $e->getCode(), $e);
-        }
+        throw new CryptoException('New messages should not be encrypted using the v1 branch of defuse/crypto.');
     }
 }

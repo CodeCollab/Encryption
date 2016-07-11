@@ -4,6 +4,7 @@ namespace CodeCollabTest\Unit\Encryption\Defuse;
 
 use CodeCollab\Encryption\Defuse\Encryptor;
 use CodeCollab\Encryption\Defuse\Key;
+use CodeCollab\Encryption\CryptoException;
 
 class EncryptorTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,28 +15,32 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
     {
         $encryptor = new Encryptor('key');
 
-        $this->assertInstanceOf('CodeCollab\Encryption\Encryptor', $encryptor);
+        $this->assertInstanceOf(Encryptor::class, $encryptor);
     }
 
     /**
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptSuccess()
+    public function testEncryptSuccessThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
+
         $key       = (new Key())->generate();
         $encryptor = new Encryptor($key);
 
-        $this->assertSame(64, strlen($encryptor->encrypt('foobarbaz')));
+        $encryptor->encrypt('foobarbaz');
     }
 
     /**
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptThrowsOnBadKey()
+    public function testEncryptThrowsOnBadKeyThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
-        $this->setExpectedException('CodeCollab\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $encryptor = new Encryptor('bad key');
 
@@ -46,7 +51,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptThrowsOnOpensslGetCipherMethodsNotAvailable()
+    public function testEncryptThrowsOnOpensslGetCipherMethodsNotAvailableThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
         if (!function_exists('uopz_backup')) {
             $this->markTestSkipped('uopz extension is not installed.');
@@ -57,7 +62,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         uopz_backup('openssl_get_cipher_methods');
         uopz_delete('openssl_get_cipher_methods');
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
         $encryptor = new Encryptor($key);
@@ -71,7 +77,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptThrowsOnOpensslGetCipherMethodsCipherMethodNotAvailable()
+    public function testEncryptThrowsOnOpensslGetCipherMethodsCipherMethodNotAvailableThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
         if (!function_exists('uopz_backup')) {
             $this->markTestSkipped('uopz extension is not installed.');
@@ -84,7 +90,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
             return [];
         });
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
         $encryptor = new Encryptor($key);
@@ -98,7 +105,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptThrowsOnOpensslCipherIvLengthMethodNotAvailable()
+    public function testEncryptThrowsOnOpensslCipherIvLengthMethodNotAvailableThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
         if (!function_exists('uopz_backup')) {
             $this->markTestSkipped('uopz extension is not installed.');
@@ -109,7 +116,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         uopz_backup('openssl_cipher_iv_length');
         uopz_delete('openssl_cipher_iv_length');
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
         $encryptor = new Encryptor($key);
@@ -123,7 +131,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptThrowsOnOpensslCipherIvLengthReturnsFalse()
+    public function testEncryptThrowsOnOpensslCipherIvLengthReturnsFalseThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
         if (!function_exists('uopz_backup')) {
             $this->markTestSkipped('uopz extension is not installed.');
@@ -136,7 +144,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
             return false;
         });
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
         $encryptor = new Encryptor($key);
@@ -150,7 +159,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
      * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
      */
-    public function testEncryptThrowsOnOpensslCipherIvLengthReturnsIvSizeSmallerThanZero()
+    public function testEncryptThrowsOnOpensslCipherIvLengthReturnsIvSizeSmallerThanZeroThrowsCryptoExceptionBecauseOfObsoleteEncryptionMethod()
     {
         if (!function_exists('uopz_backup')) {
             $this->markTestSkipped('uopz extension is not installed.');
@@ -163,7 +172,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
             return -1;
         });
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->expectException(CryptoException::class);
+        $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
         $encryptor = new Encryptor($key);
