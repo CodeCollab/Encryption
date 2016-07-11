@@ -15,7 +15,9 @@
 namespace CodeCollab\Encryption\Defuse;
 
 use CodeCollab\Encryption\Decryptor as DecryptorInterface;
-use Crypto;
+use Defuse\Crypto\Crypto;
+use Defuse\Crypto\Exception\EnvironmentIsBrokenException;
+use Defuse\Crypto\Exception\WrongKeyOrModifiedCiphertextException;
 use CodeCollab\Encryption\FraudException;
 use CodeCollab\Encryption\CryptoException;
 
@@ -54,10 +56,10 @@ class Decryptor implements DecryptorInterface
     public function decrypt(string $data): string
     {
         try {
-            return Crypto::decrypt($data, $this->key);
-        } catch(\InvalidCiphertextException $e) {
+            return Crypto::legacyDecrypt($data, $this->key);
+        } catch(WrongKeyOrModifiedCiphertextException $e) {
             throw new FraudException($e->getMessage(), $e->getCode(), $e);
-        } catch(\Exception $e) {
+        } catch(EnvironmentIsBrokenException $e) {
             throw new CryptoException($e->getMessage(), $e->getCode(), $e);
         }
     }

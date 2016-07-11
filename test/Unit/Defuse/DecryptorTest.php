@@ -5,6 +5,8 @@ namespace CodeCollabTest\Unit\Encryption\Defuse;
 use CodeCollab\Encryption\Defuse\Encryptor;
 use CodeCollab\Encryption\Defuse\Decryptor;
 use CodeCollab\Encryption\Defuse\Key;
+use CodeCollab\Encryption\FraudException;
+use CodeCollab\Encryption\CryptoException;
 
 class DecryptorTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,9 +15,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsCorrectInterface()
     {
-        $decryptor = new Decryptor((new Key())->generate());
+        $decryptor = new Decryptor('fakekey');
 
-        $this->assertInstanceOf('CodeCollab\Encryption\Decryptor', $decryptor);
+        $this->assertInstanceOf(Decryptor::class, $decryptor);
     }
 
     /**
@@ -24,11 +26,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecryptSuccess()
     {
-        $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
-        $decryptor = new Decryptor($key);
+        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
-        $this->assertSame('foobarbaz', $decryptor->decrypt($encryptor->encrypt('foobarbaz')));
+        $this->assertSame('foobarbaz', $decryptor->decrypt(base64_decode('nJo+MKc8G5/6n8bmNFINLJWBZJ/ppYvpoGXBWYe8tuT/ElZ2KydVfPCR5nlGDUu3RTHGLsScib2mmrk5WIf0hA==')));
     }
 
     /**
@@ -37,13 +37,11 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecryptThrowsOnBadKey()
     {
-        $this->setExpectedException('CodeCollab\Encryption\FraudException');
+        $this->setExpectedException(FraudException::class);
 
-        $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
         $decryptor = new Decryptor('bad key');
 
-        $decryptor->decrypt($encryptor->encrypt('foobarbaz'));
+        $decryptor->decrypt(base64_decode('nJo+MKc8G5/6n8bmNFINLJWBZJ/ppYvpoGXBWYe8tuT/ElZ2KydVfPCR5nlGDUu3RTHGLsScib2mmrk5WIf0hA=='));
     }
 
     /**
@@ -61,10 +59,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
         uopz_backup('openssl_get_cipher_methods');
         uopz_delete('openssl_get_cipher_methods');
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->setExpectedException(CryptoException::class);
 
-        $key       = (new Key())->generate();
-        $decryptor = new Decryptor($key);
+        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
         $decryptor->decrypt('ciphertext');
 
@@ -88,12 +85,11 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
             return [];
         });
 
-        $this->setExpectedException('CodeCollabLib\Encryption\CryptoException');
+        $this->setExpectedException(CryptoException::class);
 
-        $key       = (new Key())->generate();
-        $decryptor = new Decryptor($key);
+        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
-        $decryptor->encrypt('ciphertext');
+        $decryptor->decrypt('ciphertext');
 
         uopz_restore('openssl_get_cipher_methods');
     }
@@ -104,17 +100,10 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecryptThrowsOnNonValidCipherTextLength()
     {
-        if (!function_exists('uopz_backup')) {
-            $this->markTestSkipped('uopz extension is not installed.');
+        $this->setExpectedException(FraudException::class);
 
-            return;
-        }
+        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
-        $this->setExpectedException('CodeCollabLib\Encryption\FraudException');
-
-        $key       = (new Key())->generate();
-        $decryptor = new Decryptor($key);
-
-        $decryptor->encrypt('ciphertext');
+        $decryptor->decrypt('ciphertext');
     }
 }
