@@ -2,6 +2,7 @@
 
 namespace CodeCollabTest\Unit\Encryption\Defusev2;
 
+use CodeCollab\Encryption\Key as KeyInterface;
 use CodeCollab\Encryption\Defusev2\Key;
 use CodeCollab\Encryption\CryptoException;
 
@@ -15,15 +16,15 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Key::__construct
+     * @covers CodeCollab\Encryption\Defusev2\Key::__construct
      */
     public function testImplementsCorrectInterface()
     {
-        $this->assertInstanceOf(Key::class, $this->key);
+        $this->assertInstanceOf(KeyInterface::class, $this->key);
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Key::generate
+     * @covers CodeCollab\Encryption\Defusev2\Key::generate
      */
     public function testGenerateCorrectLength()
     {
@@ -31,7 +32,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Key::generate
+     * @covers CodeCollab\Encryption\Defusev2\Key::generate
      */
     public function testGenerateNotTheSame()
     {
@@ -47,7 +48,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Key::generate
+     * @covers CodeCollab\Encryption\Defusev2\Key::generate
      */
     public function testGenerateThrowsOnCryptoError()
     {

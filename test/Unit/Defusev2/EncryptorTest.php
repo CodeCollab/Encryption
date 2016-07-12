@@ -2,6 +2,7 @@
 
 namespace CodeCollabTest\Unit\Encryption\Defusev2;
 
+use CodeCollab\Encryption\Encryptor as EncryptorInterface;
 use CodeCollab\Encryption\Defusev2\Encryptor;
 use Defuse\Crypto\Key as DefuseKey;
 use CodeCollab\Encryption\CryptoException;
@@ -15,7 +16,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
     {
         $encryptor = new Encryptor(DefuseKey::createNewRandomKey()->saveToAsciiSafeString());
 
-        $this->assertInstanceOf(Encryptor::class, $encryptor);
+        $this->assertInstanceOf(EncryptorInterface::class, $encryptor);
     }
 
     /**

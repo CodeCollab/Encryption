@@ -34,7 +34,7 @@ class Key implements KeyInterface
      *
      * @return string The generated key
      *
-     * @throw \CodeCollab\Encryption\CryptoException When not being able to create a sufficient strong key
+     * @throws \CodeCollab\Encryption\CryptoException When not being able to create a sufficient strong key
      */
     public function generate(): string
     {
