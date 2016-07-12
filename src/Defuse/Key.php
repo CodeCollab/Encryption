@@ -15,7 +15,6 @@
 namespace CodeCollab\Encryption\Defuse;
 
 use CodeCollab\Encryption\Key as KeyInterface;
-use Defuse\Crypto\Key;
 use CodeCollab\Encryption\CryptoException;
 
 /**
@@ -31,7 +30,7 @@ class Key implements KeyInterface
     /**
      * Generates a new key
      *
-     * @throw \CodeCollab\Encryption\CryptoException Telling users to upgrade to the v2 branch of defuse/crypto
+     * @throws \CodeCollab\Encryption\CryptoException Telling users to upgrade to the v2 branch of defuse/crypto
      */
     public function generate(): string
     {
