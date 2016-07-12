@@ -14,21 +14,19 @@ Include the library in your project using composer:
 
     {
         "require-dev": {
-            "codecollab/encryption": "1.0.*"
+            "codecollab/encryption": "^2"
         }
     }
 
 ## Usage
 
-This library provides a common interfaces and exceptions for handling crypto in your applications.
-
-At the moment this library is just a wrapper around [defuse/php-encryption](https://github.com/defuse/php-encryption), but other crypto libraries will be included later.
+This library provides a common interfaces and exceptions for handling crypto in your applications..
 
 ### Generating key
 
 Before being able to encrypt/decrypt data a key needs to be generated / added. To generate a new key use:
 
-    $key = (new \CodeCollab\Encryption\Defuse\Key())->generate();
+    $key = (new \CodeCollab\Encryption\Defusev2\Key())->generate();
     
 *Note: keys should always be stored in a secure location and should never be made public.*
 
@@ -36,15 +34,21 @@ Before being able to encrypt/decrypt data a key needs to be generated / added. T
 
 ### Encrypting
 
-    $encryptedData = (new \CodeCollab\Encryption\Defuse\Encryptor($key))->encrypt('the data to encrypt');
+    $encryptedData = (new \CodeCollab\Encryption\Defusev2\Encryptor($key))->encrypt('the data to encrypt');
     
-*Note: all key share the common `CodeCollab\Encryption\Encryptor` interface.*
+*Note: all encryptors share the common `CodeCollab\Encryption\Encryptor` interface.*
 
 ### Decrypting
 
-    $decryptedData = (new \CodeCollab\Encryption\Defuse\Decryptor($key))->decrypt($encryptedData);
+    $decryptedData = (new \CodeCollab\Encryption\Defusev2\Decryptor($key))->decrypt($encryptedData);
     
-*Note: all key share the common `CodeCollab\Encryption\Decryptor` interface.*
+*Note: all decryptors share the common `CodeCollab\Encryption\Decryptor` interface.*
+
+To decrypt old data encrypted with v1* of this library use the deprecated:
+
+    $decryptedData = (new \CodeCollab\Encryption\Defuse\Decryptor($key))->decrypt($encryptedData);
+
+Using your current key. For newly encrypted data create a new and separate key.
 
 ### Exceptions
 
@@ -77,4 +81,3 @@ This exception gets thrown when there has been suspected tampering with messages
 ## Security issues
 
 If you found a security issue please contact directly by mail instead of using the issue tracker at codecollab-security@pieterhordijk.com
-
