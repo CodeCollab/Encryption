@@ -52,6 +52,9 @@ class Decryptor implements DecryptorInterface
      * @param string $data The data to encrypt
      *
      * @return string The encrypted data
+     *
+     * @throws \CodeCollab\Encryption\CryptoException When the message could not be decrypted
+     * @throws \CodeCollab\Encryption\FraudException  When the message is potentially tampered with
      */
     public function decrypt(string $data): string
     {

@@ -2,9 +2,8 @@
 
 namespace CodeCollabTest\Unit\Encryption\Defuse;
 
-use CodeCollab\Encryption\Defuse\Encryptor;
 use CodeCollab\Encryption\Defuse\Decryptor;
-use CodeCollab\Encryption\Defuse\Key;
+use CodeCollab\Encryption\Defuse\Decryptor as DefuseDecryptor;
 use CodeCollab\Encryption\FraudException;
 use CodeCollab\Encryption\CryptoException;
 
@@ -15,7 +14,7 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsCorrectInterface()
     {
-        $decryptor = new Decryptor('fakekey');
+        $decryptor = new DefuseDecryptor('fakekey');
 
         $this->assertInstanceOf(Decryptor::class, $decryptor);
     }
@@ -26,7 +25,7 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecryptSuccess()
     {
-        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
+        $decryptor = new DefuseDecryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
         $this->assertSame('foobarbaz', $decryptor->decrypt(base64_decode('nJo+MKc8G5/6n8bmNFINLJWBZJ/ppYvpoGXBWYe8tuT/ElZ2KydVfPCR5nlGDUu3RTHGLsScib2mmrk5WIf0hA==')));
     }
@@ -37,9 +36,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecryptThrowsOnBadKey()
     {
-        $this->setExpectedException(FraudException::class);
+        $this->expectException(FraudException::class);
 
-        $decryptor = new Decryptor('bad key');
+        $decryptor = new DefuseDecryptor('bad key');
 
         $decryptor->decrypt(base64_decode('nJo+MKc8G5/6n8bmNFINLJWBZJ/ppYvpoGXBWYe8tuT/ElZ2KydVfPCR5nlGDUu3RTHGLsScib2mmrk5WIf0hA=='));
     }
@@ -59,9 +58,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
         uopz_backup('openssl_get_cipher_methods');
         uopz_delete('openssl_get_cipher_methods');
 
-        $this->setExpectedException(CryptoException::class);
+        $this->expectException(CryptoException::class);
 
-        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
+        $decryptor = new DefuseDecryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
         $decryptor->decrypt('ciphertext');
 
@@ -85,9 +84,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
             return [];
         });
 
-        $this->setExpectedException(CryptoException::class);
+        $this->expectException(CryptoException::class);
 
-        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
+        $decryptor = new DefuseDecryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
         $decryptor->decrypt('ciphertext');
 
@@ -100,9 +99,9 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecryptThrowsOnNonValidCipherTextLength()
     {
-        $this->setExpectedException(FraudException::class);
+        $this->expectException(FraudException::class);
 
-        $decryptor = new Decryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
+        $decryptor = new DefuseDecryptor(base64_decode('iikuhrV0bgDuN8496EbSFA=='));
 
         $decryptor->decrypt('ciphertext');
     }
