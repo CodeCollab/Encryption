@@ -67,6 +67,25 @@ This exception gets thrown when a key could not be generated or when a message c
 
 This exception gets thrown when there has been suspected tampering with messages. This exception should be handled like the message has been tampered with and precautions should be taken.
 
+## Upgrading
+
+When upgrading from from v1* to v2* of this library there are breaking changes.
+
+It's not possible anymore to generate a new key or encrypt data using the obsolete `CodeCollab\Encryption\Defuse\Key` and `CodeCollab\Encryption\Defuse\Encrypt` classes.
+
+The `CodeCollab\Encryption\Defuse` package has been superseded by the ``CodeCollab\Encryption\Defusev2` package.
+
+Decrypting of data is still possible using the deprecated `CodeCollab\Encryption\Defuse\Decrypt::decrypt()` method and will be for the foreseeable future.
+
+It is however *strongly* advised to re-encrypt old data using the new `CodeCollab\Encryption\Defusev2` package.
+
+The workflow for this will be:
+
+- Generate a new key using the new `CodeCollab\Encryption\Defusev2\Key::generate()` method (**But don't overwrite the current key yet!**)
+- Decrypt the data using the current key and the `CodeCollab\Encryption\Defuse\Decrypt::decrypt()` method
+- Encrypt the data using the new `CodeCollab\Encryption\Defusev2\Encrypt::encrypt()` method with the newly generate key
+- Newly encrypted data can now be decrypted using the new `CodeCollab\Encryption\Defusev2\Decrypt::decrypt()` method
+
 ## Contributing
 
 [How to contribute][contributing]
