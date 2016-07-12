@@ -9,7 +9,7 @@ use CodeCollab\Encryption\CryptoException;
 class EncryptorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
+     * @covers CodeCollab\Encryption\Defusev2\Encryptor::__construct
      */
     public function testImplementsCorrectInterface()
     {
@@ -19,8 +19,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
-     * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
+     * @covers CodeCollab\Encryption\Defusev2\Encryptor::__construct
+     * @covers CodeCollab\Encryption\Defusev2\Encryptor::encrypt
      */
     public function testConstructorThrowsOnInvalidKey()
     {
@@ -31,8 +31,8 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers CodeCollab\Encryption\Defuse\Encryptor::__construct
-     * @covers CodeCollab\Encryption\Defuse\Encryptor::encrypt
+     * @covers CodeCollab\Encryption\Defusev2\Encryptor::__construct
+     * @covers CodeCollab\Encryption\Defusev2\Encryptor::encrypt
      */
     public function testEncryptSuccess()
     {
