@@ -15,7 +15,7 @@
 namespace CodeCollab\Encryption\Defusev2;
 
 use CodeCollab\Encryption\Encryptor as EncryptorInterface;
-use Defuse\Crypto\Key;
+use Defuse\Crypto\Key as DefuseKey;
 use Defuse\Crypto\Exception\BadFormatException;
 use Defuse\Crypto\Crypto;
 use Defuse\Crypto\Exception\EnvironmentIsBrokenException;
@@ -46,7 +46,7 @@ class Encryptor implements EncryptorInterface
     public function __construct(string $key)
     {
         try {
-            $this->key = Key::loadFromAsciiSafeString($key);
+            $this->key = DefuseKey::loadFromAsciiSafeString($key);
         } catch (BadFormatException $e) {
             throw new CryptoException($e->getMessage(), $e->getCode(), $e);
         }
