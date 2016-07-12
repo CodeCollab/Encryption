@@ -2,10 +2,9 @@
 
 namespace CodeCollabTest\Unit\Encryption\Defusev2;
 
-use CodeCollab\Encryption\Defusev2\Encryptor;
 use CodeCollab\Encryption\Decryptor as DecryptorInterface;
+use CodeCollab\Encryption\Defusev2\Encryptor;
 use CodeCollab\Encryption\Defusev2\Decryptor;
-use Defuse\Crypto\Key as DefuseKey;
 use CodeCollab\Encryption\Defusev2\Key;
 use CodeCollab\Encryption\FraudException;
 use CodeCollab\Encryption\CryptoException;
@@ -17,7 +16,7 @@ class DecryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsCorrectInterface()
     {
-        $decryptor = new Decryptor(DefuseKey::createNewRandomKey()->saveToAsciiSafeString());
+        $decryptor = new Decryptor((new Key)->generate());
 
         $this->assertInstanceOf(DecryptorInterface::class, $decryptor);
     }
