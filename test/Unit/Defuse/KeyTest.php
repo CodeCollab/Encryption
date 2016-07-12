@@ -2,7 +2,8 @@
 
 namespace CodeCollabTest\Unit\Encryption\Defuse;
 
-use CodeCollab\Encryption\Defuse\Key;
+use CodeCollab\Encryption\Defuse\Key as DefuseKey;
+use CodeCollab\Encryption\Key;
 use CodeCollab\Encryption\CryptoException;
 
 class KeyTest extends \PHPUnit_Framework_TestCase
@@ -11,7 +12,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->key = new Key();
+        $this->key = new DefuseKey();
     }
 
     /**
