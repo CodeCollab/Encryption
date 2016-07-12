@@ -25,7 +25,8 @@
         <whitelist>
             <directory suffix=".php">src/</directory>
             <exclude>
-                <file>src/StrengthException.php</file>
+                <file>src/CryptoException.php</file>
+                <file>src/FraudException.php</file>
             </exclude>
         </whitelist>
     </filter>
