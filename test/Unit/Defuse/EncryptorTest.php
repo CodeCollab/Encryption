@@ -2,7 +2,8 @@
 
 namespace CodeCollabTest\Unit\Encryption\Defuse;
 
-use CodeCollab\Encryption\Defuse\Encryptor;
+use CodeCollab\Encryption\Encryptor;
+use CodeCollab\Encryption\Defuse\Encryptor as DefuseEncryptor;
 use CodeCollab\Encryption\Defuse\Key;
 use CodeCollab\Encryption\CryptoException;
 
@@ -13,7 +14,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsCorrectInterface()
     {
-        $encryptor = new Encryptor('key');
+        $encryptor = new DefuseEncryptor('key');
 
         $this->assertInstanceOf(Encryptor::class, $encryptor);
     }
@@ -28,7 +29,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
+        $encryptor = new DefuseEncryptor($key);
 
         $encryptor->encrypt('foobarbaz');
     }
@@ -42,7 +43,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectException(CryptoException::class);
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
-        $encryptor = new Encryptor('bad key');
+        $encryptor = new DefuseEncryptor('bad key');
 
         $encryptor->encrypt('foobarbaz');
     }
@@ -66,7 +67,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
+        $encryptor = new DefuseEncryptor($key);
 
         $encryptor->encrypt('foobarbaz');
 
@@ -94,7 +95,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
+        $encryptor = new DefuseEncryptor($key);
 
         $encryptor->encrypt('foobarbaz');
 
@@ -120,7 +121,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
+        $encryptor = new DefuseEncryptor($key);
 
         $encryptor->encrypt('foobarbaz');
 
@@ -148,7 +149,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
+        $encryptor = new DefuseEncryptor($key);
 
         $encryptor->encrypt('foobarbaz');
 
@@ -176,7 +177,7 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('New messages should not be encrypted using the v1 branch of defuse/crypto.');
 
         $key       = (new Key())->generate();
-        $encryptor = new Encryptor($key);
+        $encryptor = new DefuseEncryptor($key);
 
         $encryptor->encrypt('foobarbaz');
 
