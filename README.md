@@ -20,7 +20,7 @@ Include the library in your project using composer:
 
 ## Usage
 
-This library provides a common interfaces and exceptions for handling crypto in your applications..
+This library provides common interfaces and exceptions for handling crypto in your applications.
 
 ### Generating key
 
